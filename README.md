@@ -9,7 +9,7 @@ update settings.py with following:
 	STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
-# DJANGO-DOCKER
+# Vanilla-forums-DOCKER
 
 django-docker sets up a container running django, gunicorn python, based on variables provided. It will automatically start gunicorn using the WSGI variable provided. 
 
