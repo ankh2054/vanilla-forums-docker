@@ -36,7 +36,7 @@ mysql_default_install() {
   fi
 }
 
-create_django_database() {
+create_database() {
 
   if [ ! -d "/var/lib/mysql/${DB_NAME}" ]; then
 
@@ -119,7 +119,10 @@ apply_www_permissions(){
 # Vanilla INSTALL  
 #
 # ################
-
+vanilla_install(){
+cd /DATA/www
+wget https://us.v-cdn.net/5018160/uploads/addons/61ASGDJWTXJC.zip && unzip 61ASGDJWTXJC.zip
+}
 
 
 # Running all our scripts
@@ -127,13 +130,11 @@ create_data_dir
 create_run_dir
 create_log_dir
 mysql_default_install
-create_django_database
+create_database
 set_mysql_root_pw
 create_www_dir
 apply_www_permissions
-pip_install
-django_install
-create_supervisor_conf
+vanilla_install
 
 
 
