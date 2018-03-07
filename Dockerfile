@@ -1,5 +1,6 @@
 FROM alpine:3.6
 
+#FROM php:7.1-fpm-alpine
 ENV ALPINE_VERSION=3.6
 
 # Install needed packages. Notes:
@@ -17,6 +18,7 @@ ENV ALPINE_VERSION=3.6
 #   * supervisor: To autostart and ensure services stay running.
 #   * mariadb-dev: Required by - pip install mysqlclient.
 #   * nginx: To serve Django static content and proxy connections back to Django.
+#   * php7-*: Modules requied by MODX
 
 ENV PACKAGES="\
   dumb-init \
@@ -24,13 +26,29 @@ ENV PACKAGES="\
   linux-headers \
   build-base \
   ca-certificates \
-  unzip \
+  python2 \
+  python2-dev \
   py-setuptools \
   mysql \ 
   mysql-client\
   supervisor \
   mariadb-dev \
   nginx \
+  curl \
+  unzip \
+  php7 \
+  php7-session \
+  php7-simplexml \
+  php7-zlib \
+  php7-fpm \
+  php7-cli \
+  php7-gd  \
+  php7-mcrypt \
+  php7-pdo_mysql \
+  php7-mysqli \
+  php7-curl \
+  php7-xml \
+  php7-json \
 "
 
 RUN echo \
@@ -40,21 +58,27 @@ RUN echo \
   && echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
 
   # Add the packages, with a CDN-breakage fallback if needed
-  && apk add --no-cache $PACKAGES || \
-    (sed -i -e 's/dl-cdn/dl-4/g' /etc/apk/repositories && apk add --no-cache $PACKAGES) \
+  && apk update \
+  && apk add --no-cache $PACKAGES \
 
-  # turn back the clock -- so hacky!
-  && echo "http://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/main/" > /etc/apk/repositories \
-  # && echo "@edge-testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-  # && echo "@edge-community http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
-  # && echo "@edge-main http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories 
+  # make some useful symlinks that are expected to exist
+  && if [[ ! -e /usr/bin/python ]];        then ln -sf /usr/bin/python2.7 /usr/bin/python; fi \
+  && if [[ ! -e /usr/bin/python-config ]]; then ln -sf /usr/bin/python2.7-config /usr/bin/python-config; fi \
+  && if [[ ! -e /usr/bin/easy_install ]];  then ln -sf /usr/bin/easy_install-2.7 /usr/bin/easy_install; fi \
+  && echo 
 
+
+### MYSQL ###
+############
+ENV ROOT_PWD gert
 
 # Add files
-ADD files/my.cnf /etc/mysql/my.cnf
 ADD files/nginx.conf /etc/nginx/nginx.conf
+ADD files/php-fpm.conf /etc/php/7.0/fpm/
+ADD files/supervisord.conf /etc/supervisord.conf
+ADD files/my.cnf /etc/mysql/my.cnf
 
 # Entrypoint
 ADD start.sh /
 RUN chmod u+x /start.sh
-CMD /start.sh
+CMD /start.s
