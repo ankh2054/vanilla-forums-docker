@@ -3,10 +3,6 @@
 
 ### TO-DO
 
-update settings.py with following:
-
-	STATIC_URL = '/static/'
-	STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Vanilla-forums-DOCKER
@@ -29,7 +25,7 @@ This ensures that even if your container is lost or deleted, you won't loose you
 
 ### To buld the docker django image:
 
-		$ docker build https://github.com/ankh2054/vanila-forums-docker.git -t vanilla-nginx
+		$ docker build https://github.com/ankh2054/vanilla-forums-docker.git -t vanilla-nginx
 
 ### To run it with LETENCRYPT:
 
