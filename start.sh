@@ -122,8 +122,6 @@ apply_www_permissions(){
 # ################
 vanilla_install(){
 wget https://us.v-cdn.net/5018160/uploads/addons/61ASGDJWTXJC.zip && unzip 61ASGDJWTXJC.zip  -d /DATA/www && rm 61ASGDJWTXJC.zip
-cd vanilla* && mv * .. && cd.. && rm -rf vanilla*
-chown nginx:nginx -R *
 }
 
 
