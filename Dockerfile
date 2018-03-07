@@ -52,6 +52,10 @@ ENV PACKAGES="\
   php7-xmlreader \
   php7-xmlwriter \
   php7-zip \
+  php7-phar \
+  php7-posix \
+  php7-soap \
+  php7-tokenizer \
 "
 
 RUN echo \
