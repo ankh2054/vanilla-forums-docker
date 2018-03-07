@@ -81,4 +81,4 @@ ADD files/my.cnf /etc/mysql/my.cnf
 # Entrypoint
 ADD start.sh /
 RUN chmod u+x /start.sh
-CMD /start.s
+CMD /start.sh
