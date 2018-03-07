@@ -111,7 +111,7 @@ create_www_dir() {
 apply_www_permissions(){
   echo "Applying www permissions"
   chown -R nginx:nginx /DATA/www /DATA/logs
-  chown -R nginx:nginx /var/lib/nginx
+  chown -R nginx:nginx /var/lib/nginx/logs/
 
 }
 
