@@ -48,6 +48,10 @@ ENV PACKAGES="\
   php7-xml \
   php7-json \
   php7-mbstring \
+  php7-xml \
+  php7-xmlreader \
+  php7-xmlwriter \
+  php7-zip \
 "
 
 RUN echo \
