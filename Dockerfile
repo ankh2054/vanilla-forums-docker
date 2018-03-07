@@ -26,8 +26,6 @@ ENV PACKAGES="\
   linux-headers \
   build-base \
   ca-certificates \
-  python2 \
-  python2-dev \
   py-setuptools \
   mysql \ 
   mysql-client\
@@ -49,6 +47,7 @@ ENV PACKAGES="\
   php7-curl \
   php7-xml \
   php7-json \
+  php7-mbstring \
 "
 
 RUN echo \
@@ -59,13 +58,7 @@ RUN echo \
 
   # Add the packages, with a CDN-breakage fallback if needed
   && apk update \
-  && apk add --no-cache $PACKAGES \
-
-  # make some useful symlinks that are expected to exist
-  && if [[ ! -e /usr/bin/python ]];        then ln -sf /usr/bin/python2.7 /usr/bin/python; fi \
-  && if [[ ! -e /usr/bin/python-config ]]; then ln -sf /usr/bin/python2.7-config /usr/bin/python-config; fi \
-  && if [[ ! -e /usr/bin/easy_install ]];  then ln -sf /usr/bin/easy_install-2.7 /usr/bin/easy_install; fi \
-  && echo 
+  && apk add --no-cache $PACKAGES 
 
 
 ### MYSQL ###
