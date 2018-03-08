@@ -43,6 +43,7 @@ ENV PACKAGES="\
   php7-gd  \
   php7-mcrypt \
   php7-pdo_mysql \
+  php7-ctype \
   php7-mysqli \
   php7-curl \
   php7-xml \
