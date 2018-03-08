@@ -40,6 +40,7 @@ ENV PACKAGES="\
   php7-zlib \
   php7-fpm \
   php7-cli \
+  php7-iconv \
   php7-gd  \
   php7-mcrypt \
   php7-pdo_mysql \
